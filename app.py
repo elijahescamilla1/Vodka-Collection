@@ -1,31 +1,17 @@
-from flask import Flask
-from models import db
-from flask_migrate import Migrate
-from routes.auth import bp as auth_bp
-from routes.vodka import bp as vodka_bp
-from config import Config
-from dotenv import load_dotenv
-import os
+from flask import Flask, jsonify
 
-load_dotenv()  # Load environment variables from .env
+app = Flask(__name__)
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object(Config)
+@app.route('/')
+def home():
+    return jsonify({"message": "Welcome to the Vodka Collection API"})
 
-    db.init_app(app)
-    migrate = Migrate(app, db)
-
-    app.register_blueprint(auth_bp, url_prefix='/auth')
-    app.register_blueprint(vodka_bp, url_prefix='/vodkas')
-
-    @app.before_first_request
-    def create_tables():
-        db.create_all()
-
-    return app
-
-app = create_app()
+@app.route('/vodkas', methods=['GET'])
+def get_vodkas():
+    return jsonify([
+        {"name": "Vodka A", "origin": "Russia", "alcohol_content": 40},
+        {"name": "Vodka B", "origin": "Poland", "alcohol_content": 45}
+    ])
 
 if __name__ == '__main__':
     app.run(debug=True)
