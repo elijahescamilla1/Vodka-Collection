@@ -1,9 +1,8 @@
 from flask import Blueprint, request, jsonify
-from app import db
-from models import Vodka
 from flask_jwt_extended import jwt_required
+from models import db, Vodka
 
-bp = Blueprint('vodka', __name__, url_prefix='/vodka')
+bp = Blueprint('vodka', __name__, url_prefix='/vodkas')
 
 @bp.route('/', methods=['GET'])
 @jwt_required()
@@ -11,17 +10,11 @@ def get_vodkas():
     vodkas = Vodka.query.all()
     return jsonify([vodka.to_dict() for vodka in vodkas]), 200
 
-@bp.route('/<int:id>', methods=['GET'])
-@jwt_required()
-def get_vodka(id):
-    vodka = Vodka.query.get_or_404(id)
-    return jsonify(vodka.to_dict()), 200
-
 @bp.route('/', methods=['POST'])
 @jwt_required()
-def create_vodka():
+def add_vodka():
     data = request.get_json()
-    new_vodka = Vodka(**data)
+    new_vodka = Vodka(name=data['name'], brand=data['brand'], country=data['country'], price=data['price'])
     db.session.add(new_vodka)
     db.session.commit()
     return jsonify(new_vodka.to_dict()), 201
@@ -31,8 +24,10 @@ def create_vodka():
 def update_vodka(id):
     data = request.get_json()
     vodka = Vodka.query.get_or_404(id)
-    for key, value in data.items():
-        setattr(vodka, key, value)
+    vodka.name = data['name']
+    vodka.brand = data['brand']
+    vodka.country = data['country']
+    vodka.price = data['price']
     db.session.commit()
     return jsonify(vodka.to_dict()), 200
 
@@ -42,4 +37,4 @@ def delete_vodka(id):
     vodka = Vodka.query.get_or_404(id)
     db.session.delete(vodka)
     db.session.commit()
-    return jsonify({"msg": "Vodka deleted"}), 200
+    return '', 204

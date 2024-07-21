@@ -18,9 +18,7 @@ app.register_blueprint(vodka_bp)
 def create_tables():
     db.create_all()
 
-# Expose the app for Vercel
 if __name__ == '__main__':
     app.run(debug=True)
 else:
-    # Vercel requires the app to be callable
-    app = app
+    app = app  # Vercel requires the app to be callable

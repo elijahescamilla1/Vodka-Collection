@@ -20,3 +20,12 @@ class Vodka(db.Model):
     brand = db.Column(db.String(80), nullable=False)
     country = db.Column(db.String(80), nullable=False)
     price = db.Column(db.Float, nullable=False)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'brand': self.brand,
+            'country': self.country,
+            'price': self.price
+        }
