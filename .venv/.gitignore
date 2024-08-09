@@ -1,0 +1,12 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Virtual Environment
+venv/
+
+# MacOS files
+.DS_Store
+
+# Migrations
+migrations/__pycache__/
