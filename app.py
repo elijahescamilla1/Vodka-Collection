@@ -2,11 +2,13 @@ from flask import Flask, jsonify
 from config import Config
 from models import db
 from flask_jwt_extended import JWTManager
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
 db.init_app(app)
+migrate = Migrate(app, db)  # Initialize Flask-Migrate
 jwt = JWTManager(app)
 
 @app.before_first_request
