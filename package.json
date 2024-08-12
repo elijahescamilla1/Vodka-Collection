@@ -1,0 +1,22 @@
+{
+  "name": "vodka-collection",
+  "version": "1.0.0",
+  "description": "Shows different vodka types",
+  "main": "index.js",
+  "scripts": {
+    "test": "Run's the project's test suites"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elijahescamilla1/Vodka-Collection.git"
+  },
+  "keywords": [
+    "Vodka"
+  ],
+  "author": "Elijah Escamilla",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elijahescamilla1/Vodka-Collection/issues"
+  },
+  "homepage": "https://github.com/elijahescamilla1/Vodka-Collection#readme"
+}
