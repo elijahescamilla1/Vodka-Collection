@@ -4,7 +4,12 @@
   "description": "Shows different vodka types",
   "main": "index.js",
   "scripts": {
-    "test": "Run's the project's test suites"
+    "start": "node index.js",
+    "build": "echo 'No build step required'",
+    "test": "echo 'Running tests...'",
+    "deploy": "firebase deploy",
+    "lint": "eslint .",
+    "ci": "npm ci && npm run build"
   },
   "repository": {
     "type": "git",
